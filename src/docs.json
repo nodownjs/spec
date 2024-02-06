@@ -1,0 +1,15 @@
+[
+  {
+    "folder": "0-inline-element",
+    "files": [
+      "image.md",
+      "link.md"
+    ]
+  },
+  {
+    "folder": "1-block-element",
+    "files": [
+      "title.md"
+    ]
+  }
+]
