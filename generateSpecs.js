@@ -1,8 +1,8 @@
 import { readdirSync, writeFileSync } from "fs";
 import { join } from "path";
 
-const docsPath = "./docs";
-const srcPath = "./src/docs.json";
+const docsPath = "./public/specs";
+const srcPath = "./src/specs-path.json";
 
 function readMarkdownFiles(directory) {
   return readdirSync(directory, { withFileTypes: true })

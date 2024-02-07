@@ -1,11 +1,15 @@
 function Header() {
   return (
-    <header>
-      <div>
-        <img src="/images/logo.svg" />
-        <span>Nodown syntaxes</span>
+    <>
+      <div id="header-space">
+        <header>
+          <div>
+            <img src="/images/logo.svg" />
+            <span>Nodown syntaxes</span>
+          </div>
+        </header>
       </div>
-    </header>
+    </>
   );
 }
 
