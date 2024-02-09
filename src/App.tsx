@@ -37,7 +37,7 @@ function App() {
           file,
           true
         )}`;
-        const path = `/public/specs/${id}`;
+        const path = `/specs/specs/${id}`;
         fetch(path)
           .then((response) => response.text())
           .then((data) => {
@@ -64,7 +64,7 @@ function App() {
       //   // },
       // },
     });
-    console.log(doc);
+    // console.log(doc);
 
     setNd(doc);
   }, [spec]);

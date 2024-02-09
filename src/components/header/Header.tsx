@@ -4,7 +4,7 @@ function Header() {
       <div id="header-space">
         <header>
           <div>
-            <img src="/images/logo.svg" />
+            <img src="/specs/images/logo.svg" />
             <span>Nodown syntaxes</span>
           </div>
         </header>
