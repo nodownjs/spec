@@ -1,0 +1,36 @@
+#header {
+  height: 80px;
+  width: 100%;
+  background-color: inherit;
+
+  > div {
+    border-bottom: 1px solid rgba($color: #fff, $alpha: 0.1);
+    --padding: 24px;
+    padding: 0 var(--padding);
+    width: calc(100% - 2 * var(--padding));
+    height: inherit;
+    position: fixed;
+    background-color: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > div {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+    }
+  }
+
+  #title {
+    img {
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  nav ul {
+    gap: 1em;
+    display: flex;
+  }
+}

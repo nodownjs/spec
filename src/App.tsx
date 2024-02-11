@@ -6,7 +6,8 @@ import "../node_modules/nodown/styles/index.css";
 import "../node_modules/nodown/styles/theme-dark.css";
 import "../node_modules/nodown/styles/theme-light.css";
 import Header from "./components/header/Header";
-import Navigation from "./components/header/Navigation";
+import Navigation from "./components/navigation/Navigation";
+import TableOfContent from "./components/table-of-content/TableOfContent";
 import specsPath from "./specs-path.json";
 
 export function FormatLabel(text: string, only?: boolean): string {
@@ -72,14 +73,16 @@ function App() {
   return (
     <>
       <Header />
-      <main>
+      <div>
         <Navigation data={specsPath} />
-        <div id="navigation-space"></div>
-        <div
-          id="content"
-          dangerouslySetInnerHTML={{ __html: nd ? nd : "loading..." }}
-        ></div>
-      </main>
+        <main>
+          <div
+            id="nd-content"
+            dangerouslySetInnerHTML={{ __html: nd ? nd : "" }}
+          ></div>
+          <TableOfContent />
+        </main>
+      </div>
     </>
   );
 }

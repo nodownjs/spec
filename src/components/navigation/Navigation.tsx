@@ -30,7 +30,12 @@ function Navigation({ data }: { data: PathType[] }) {
 
   const menu = <Menu mode="vertical" items={items} key={0} />;
 
-  return <nav>{menu}</nav>;
+  return (
+    <nav id="menu">
+      {" "}
+      <div>{menu}</div>
+    </nav>
+  );
 }
 
 export default Navigation;
