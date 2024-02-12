@@ -7,6 +7,12 @@ body {
     > div {
       display: flex;
     }
+    > *,
+    > header > div {
+      --width: 1600px;
+      max-width: var(--width);
+      margin: 0 auto;
+    }
   }
 }
 

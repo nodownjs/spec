@@ -7,7 +7,6 @@ import "../node_modules/nodown/styles/theme-dark.css";
 import "../node_modules/nodown/styles/theme-light.css";
 import Header from "./components/header/Header";
 import Navigation from "./components/navigation/Navigation";
-import TableOfContent from "./components/table-of-content/TableOfContent";
 import specsPath from "./specs-path.json";
 
 export function FormatLabel(text: string, only?: boolean): string {
@@ -55,6 +54,7 @@ function App() {
   useEffect(() => {
     if (!spec || !spec.data) return;
     const tree = parser(spec.data);
+    // console.log("🚀 ~ tree:", tree);
     const doc = renderToHTML(tree, {
       // table: {
       //   disabled: false,
@@ -80,7 +80,7 @@ function App() {
             id="nd-content"
             dangerouslySetInnerHTML={{ __html: nd ? nd : "" }}
           ></div>
-          <TableOfContent />
+          {/* <TableOfContent /> */}
         </main>
       </div>
     </>
