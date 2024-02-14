@@ -63,7 +63,7 @@ function TableOfContent({
     <aside>
       <div>
         <header>Summary</header>
-        <Anchor affix={false} items={convertedData} />
+        <Anchor offsetTop={128} affix={false} items={convertedData} />
       </div>
     </aside>
   );
