@@ -1,4 +1,8 @@
+import { Typography } from "antd";
+
 function Header() {
+  const { Link } = Typography;
+
   return (
     <>
       <header id="header">
@@ -10,8 +14,8 @@ function Header() {
           <div id="right">
             <nav>
               <ul>
-                <a href="#">Home</a>
-                <a href="#">Github</a>
+                <Link>Home</Link>
+                <Link href="https://github.com/nodownjs/nodown.js">Github</Link>
               </ul>
             </nav>
             <div id="search">
