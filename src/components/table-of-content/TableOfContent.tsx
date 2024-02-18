@@ -1,17 +1,3 @@
-// Définissez vos interfaces ici
-interface TocElement {
-  type: string;
-  children: TocElement[];
-  href?: string;
-}
-
-interface AnchorItem {
-  key: string;
-  href: string;
-  title: string;
-  children?: AnchorItem[];
-}
-
 function convertData(data: TocElement): AnchorItem[] {
   return data.children.map((element: TocElement, index: number): AnchorItem => {
     const test = element.children.find(
@@ -49,6 +35,7 @@ function convertData(data: TocElement): AnchorItem[] {
 
 import { Anchor } from "antd";
 import { renderToHTML } from "nodown";
+import { AnchorItem, TocElement } from "../..";
 
 function TableOfContent({
   toc,

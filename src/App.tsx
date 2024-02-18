@@ -1,7 +1,7 @@
 import { parser, renderToHTML } from "nodown";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DataType } from ".";
+import { DataType, TocElement } from ".";
 import "../node_modules/nodown/styles/index.css";
 import "../node_modules/nodown/styles/theme-dark.css";
 import "../node_modules/nodown/styles/theme-light.css";
@@ -23,7 +23,7 @@ export function FormatLabel(text: string, only?: boolean): string {
 function App() {
   const [data, setData] = useState<DataType[]>([]);
   const [nd, setNd] = useState<string>();
-  const [toc, setToc] = useState<object>();
+  const [toc, setToc] = useState<TocElement>();
   const params = useParams();
 
   const spec = data.find(
@@ -56,7 +56,7 @@ function App() {
   useEffect(() => {
     if (!spec || !spec.data) return;
     const tree = parser(spec.data);
-    setToc((tree as { tableOfContents: object }).tableOfContents);
+    setToc((tree as { tableOfContents: TocElement }).tableOfContents);
     const doc = renderToHTML(tree, {
       // table: {
       //   disabled: false,

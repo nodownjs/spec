@@ -8,3 +8,16 @@ export interface DataType {
   params: string;
   path: string;
 }
+
+export interface TocElement {
+  type: string;
+  children: TocElement[];
+  href?: string;
+}
+
+export interface AnchorItem {
+  key: string;
+  href: string;
+  title: string;
+  children?: AnchorItem[];
+}
