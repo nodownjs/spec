@@ -32,6 +32,15 @@
             l.pathname.slice(0, -1) + decoded + l.hash
           );
         }
+        var anchor = l.hash;
+        if (anchor) {
+          setTimeout(function () {
+            var target = document.querySelector(anchor);
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 0);
+        }
       })(window.location);
     </script>
     <div id="root"></div>
