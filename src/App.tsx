@@ -75,7 +75,10 @@ function App() {
 
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
-    if (localTheme) setLocalTheme(localTheme as ThemeType);
+    if (localTheme) {
+      setLocalTheme(localTheme as ThemeType);
+      document.body.setAttribute("data-theme", localTheme);
+    }
   }, []);
 
   return (

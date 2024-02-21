@@ -24,10 +24,14 @@
         padding-left: 8px !important;
         margin-left: 0 !important;
       }
-      .ant-menu-item-selected {
-        color: #fff !important;
-        background-color: rgba($color: #fff, $alpha: 0.1) !important;
-      }
     }
   }
+}
+body[data-theme="dark"] .ant-menu-item-selected {
+  color: #fff !important;
+  background-color: rgba($color: #fff, $alpha: 0.1) !important;
+}
+body[data-theme="light"] .ant-menu-item-selected {
+  color: #000 !important;
+  background-color: rgba($color: #000, $alpha: 0.1) !important;
 }

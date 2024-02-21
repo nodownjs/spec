@@ -20,6 +20,7 @@ function Header({
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
     localStorage.setItem("theme", newTheme);
+    document.body.setAttribute("data-theme", newTheme);
   };
 
   return (

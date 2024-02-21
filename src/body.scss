@@ -1,7 +1,7 @@
 body {
   margin: 0 auto;
-  background-color: #0f1319;
   padding-bottom: 100vh;
+  background-color: #0f1319;
 
   #root {
     background-color: inherit;
@@ -14,6 +14,15 @@ body {
       max-width: var(--width);
       margin: 0 auto;
     }
+  }
+
+  &[data-theme="light"] {
+    color: #000;
+    background-color: #fff;
+  }
+  &[data-theme="dark"] {
+    color: #fff;
+    background-color: #0f1319;
   }
 }
 
