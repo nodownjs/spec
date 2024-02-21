@@ -1,7 +1,8 @@
+import { ConfigProvider, theme } from "antd";
 import { parser, renderToHTML } from "nodown";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DataType, TocElement } from ".";
+import { DataType, ThemeType, TocElement } from ".";
 import "../node_modules/nodown/styles/index.css";
 import "../node_modules/nodown/styles/theme-dark.css";
 import "../node_modules/nodown/styles/theme-light.css";
@@ -24,7 +25,9 @@ function App() {
   const [data, setData] = useState<DataType[]>([]);
   const [nd, setNd] = useState<string>();
   const [toc, setToc] = useState<TocElement>();
+  const [localTheme, setLocalTheme] = useState<ThemeType>("dark");
   const params = useParams();
+  const { darkAlgorithm, defaultAlgorithm } = theme;
 
   const spec = data.find(
     (item) => item.params === `${params.category}/${params.spec}`
@@ -70,9 +73,21 @@ function App() {
     setNd(doc);
   }, [spec]);
 
+  useEffect(() => {
+    const localTheme = localStorage.getItem("theme");
+    if (localTheme) setLocalTheme(localTheme as ThemeType);
+  }, []);
+
   return (
-    <>
-      <Header />
+    <ConfigProvider
+      theme={{
+        algorithm: localTheme === "dark" ? darkAlgorithm : defaultAlgorithm,
+      }}
+    >
+      <Header
+        theme={localTheme}
+        setTheme={(theme: string) => setLocalTheme(theme as ThemeType)}
+      />
       <div>
         <Navigation data={specsPath} />
         <main>
@@ -83,7 +98,7 @@ function App() {
           <TableOfContent toc={toc} />
         </main>
       </div>
-    </>
+    </ConfigProvider>
   );
 }
 

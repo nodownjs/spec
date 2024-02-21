@@ -1,11 +1,8 @@
-import { ConfigProvider, theme } from "antd";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.scss";
-
-const { darkAlgorithm } = theme;
 
 const routes = [
   {
@@ -33,12 +30,6 @@ const router = createBrowserRouter(routes, {
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ConfigProvider
-      theme={{
-        algorithm: darkAlgorithm,
-      }}
-    >
-      <RouterProvider router={router} />
-    </ConfigProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

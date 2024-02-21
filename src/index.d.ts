@@ -21,3 +21,5 @@ export interface AnchorItem {
   title: string;
   children?: AnchorItem[];
 }
+
+export type ThemeType = "dark" | "light";
