@@ -19,7 +19,7 @@
     > div {
       display: flex;
       align-items: center;
-      gap: 1em;
+      gap: 1.5em;
     }
   }
 
@@ -31,8 +31,18 @@
   }
 
   nav ul {
+    gap: 2em;
+    display: flex;
+  }
+
+  #right {
+    gap: 3em;
+  }
+
+  #actions {
     gap: 1em;
     display: flex;
+    align-items: center;
   }
 }
 

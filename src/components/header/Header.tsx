@@ -1,8 +1,9 @@
-import { Button, Typography } from "antd";
+import { Button, Input, Typography } from "antd";
 import { ThemeType } from "../..";
 import IconMoon from "./icons/MoonIcon";
-import SearchIcon from "./icons/SearchIcon";
 import IconSun from "./icons/SunIcon";
+
+const { Search } = Input;
 
 const iconSize = 24;
 const iconStroke = 1.5;
@@ -38,15 +39,16 @@ function Header({
                 <Link href="https://github.com/nodownjs/nodown.js">Github</Link>
               </ul>
             </nav>
-            <div id="search">
-              <input type="text" placeholder="Search..." />
-            </div>
-            <div id="action">
-              <Button
-                type="text"
-                size="large"
-                icon={<SearchIcon size={iconSize} stroke={iconStroke} />}
-              />
+            <div id="actions">
+              <div id="search">
+                <Search
+                  placeholder="Search"
+                  onSearch={(value) => console.log(value)}
+                  style={{
+                    width: 200,
+                  }}
+                />
+              </div>
               <Button
                 type="text"
                 size="large"
