@@ -52,3 +52,12 @@ body[data-theme="dark"] #header > div {
 body[data-theme="light"] #header > div {
   border-bottom: 1px solid rgba($color: #000, $alpha: 0.1);
 }
+
+body[data-theme="light"] .ant-select-dropdown span {
+  background-color: rgba($color: #000, $alpha: 1);
+  color: #fff;
+}
+body[data-theme="dark"] .ant-select-dropdown span {
+  background-color: rgba($color: #fff, $alpha: 1);
+  color: #000;
+}

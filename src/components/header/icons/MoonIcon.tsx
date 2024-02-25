@@ -1,4 +1,4 @@
-function MoonIcon({ size }: { size: number }) {
+function MoonIcon({ size, stroke }: { size: number; stroke: number }) {
   return (
     <svg
       id="moon"
@@ -6,7 +6,7 @@ function MoonIcon({ size }: { size: number }) {
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      strokeWidth="1.5"
+      strokeWidth={stroke}
       fill="#fff"
       strokeLinecap="round"
       strokeLinejoin="round"

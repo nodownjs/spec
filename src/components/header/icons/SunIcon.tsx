@@ -1,4 +1,4 @@
-function SunIcon({ size }: { size: number }) {
+function SunIcon({ size, stroke }: { size: number; stroke: number }) {
   return (
     <svg
       id="sun"
@@ -6,7 +6,7 @@ function SunIcon({ size }: { size: number }) {
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      strokeWidth="1.5"
+      strokeWidth={stroke}
       fill="#F0F"
       stroke="#F00"
       strokeLinecap="round"

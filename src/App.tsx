@@ -34,7 +34,9 @@ function App() {
   );
 
   useEffect(() => {
+    if (data.length > 0) return;
     // console.log("fetching");
+    const tempData: DataType[] = [];
     specsPath.forEach((folder) => {
       folder.files.forEach((file) => {
         const id = `${folder.folder}/${file}`;
@@ -46,15 +48,14 @@ function App() {
         fetch(path)
           .then((response) => response.text())
           .then((data) => {
-            setData((prev) =>
-              prev.length > 0
-                ? [...prev, { params, data, path }]
-                : [{ params, data, path }]
-            );
+            tempData.push({ params, data, path });
+          })
+          .finally(() => {
+            setData(tempData);
           });
       });
     });
-  }, [setData]);
+  }, []);
 
   useEffect(() => {
     if (!spec || !spec.data) return;
@@ -90,6 +91,7 @@ function App() {
       <Header
         theme={localTheme}
         setTheme={(theme: string) => setLocalTheme(theme as ThemeType)}
+        data={data}
       />
       <div>
         <Navigation data={specsPath} />
