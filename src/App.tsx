@@ -1,6 +1,7 @@
-import { ConfigProvider, theme } from "antd";
+import { ConfigProvider, Table, TableProps, theme } from "antd";
 import { parser, renderToHTML } from "nodown";
 import { useEffect, useState } from "react";
+import { renderToString } from "react-dom/server";
 import { useParams } from "react-router-dom";
 import { DataType, ThemeType, TocElement } from ".";
 import "../node_modules/nodown/styles/index.css";
@@ -61,24 +62,76 @@ function App() {
     if (!spec || !spec.data) return;
     const tree = parser(spec.data);
     setToc((tree as { tableOfContents: TocElement }).tableOfContents);
-    const doc = renderToHTML(tree, {
-      // table: {
-      //   disabled: false,
-      //   childrenFormat: "object",
-      //   // customRender: () => {
-      //   //   const span = <span>test</span>
-      //   //   return span;
-      //   // },
-      // },
-    });
+    const options = {
+      table: {
+        disabled: false,
+        childrenFormat: "object",
+
+        customRender: (obj: {
+          headers: { children: object[] }[];
+          rows: { children: object[] }[];
+        }) => {
+          const columns = obj.headers.map((column: { children: object[] }) => {
+            const title = renderToHTML(column.children[0]);
+            return {
+              title: title,
+              key: title.toLocaleLowerCase().replace(/\s/g, "-"),
+              dataIndex: title.toLocaleLowerCase().replace(/\s/g, "-"),
+            };
+          });
+          console.log(columns);
+
+          const dataSource: TableProps<DataType>["columns"] = obj.rows.map(
+            (row: { children: object[] }, i: number) => {
+              const data: { [key: string]: React.ReactNode } = {
+                key: i,
+              };
+
+              row.children.forEach(
+                (cell: { children: object[] }, index: number) => {
+                  const key = columns[index].dataIndex;
+                  data[key] = (
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: renderToHTML({
+                          type: "paragraph",
+                          children: [...cell.children],
+                        }),
+                      }}
+                    ></span>
+                  );
+                }
+              );
+
+              return data;
+            }
+          );
+          console.log(dataSource);
+
+          //   console.log("🚀 ~ dataSource:", dataSource);
+          const table = (
+            <Table
+              columns={columns}
+              dataSource={dataSource}
+              pagination={false}
+            />
+          );
+          const element = renderToString(table);
+          const div = document.createElement("div");
+          div.innerHTML = element;
+          return div.firstChild as HTMLElement;
+        },
+      },
+    };
+    const doc = renderToHTML(tree, options);
     setNd(doc);
   }, [spec]);
 
   useEffect(() => {
-    const localTheme = localStorage.getItem("theme");
-    if (localTheme) {
-      setLocalTheme(localTheme as ThemeType);
-      document.body.setAttribute("data-theme", localTheme);
+    const localStorageTheme = localStorage.getItem("theme");
+    if (localStorageTheme) {
+      setLocalTheme(localStorageTheme as ThemeType);
+      document.body.setAttribute("data-theme", localStorageTheme);
     }
   }, []);
 
