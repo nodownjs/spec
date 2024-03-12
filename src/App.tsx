@@ -1,9 +1,10 @@
 import { ConfigProvider, Table, TableProps, theme } from "antd";
 import { parser, renderToHTML } from "nodown";
-import { useEffect, useState } from "react";
-import { renderToString } from "react-dom/server";
+import { useEffect, useRef, useState } from "react";
+import { Nodown } from "react-nodown";
 import { useParams } from "react-router-dom";
 import { DataType, ThemeType, TocElement } from ".";
+import "../node_modules/@ethicdevs/json-tree-view/dist/index.css";
 import "../node_modules/nodown/styles/index.css";
 import "../node_modules/nodown/styles/theme-dark.css";
 import "../node_modules/nodown/styles/theme-light.css";
@@ -29,6 +30,55 @@ function App() {
   const [localTheme, setLocalTheme] = useState<ThemeType>("dark");
   const params = useParams();
   const { darkAlgorithm, defaultAlgorithm } = theme;
+  const elementRef = useRef(null);
+
+  const renderOptions = {
+    table: {
+      disabled: false,
+      childrenFormat: "object",
+      customRender: (obj: {
+        headers: { children: object[] }[];
+        rows: { children: object[] }[];
+      }) => {
+        const columns = obj.headers.map((column: { children: object[] }) => {
+          const title = renderToHTML(column.children[0]);
+          return {
+            title: title,
+            key: title.toLocaleLowerCase().replace(/\s/g, "-"),
+            dataIndex: title.toLocaleLowerCase().replace(/\s/g, "-"),
+          };
+        });
+        const dataSource: TableProps<DataType>["columns"] = obj.rows.map(
+          (row: { children: object[] }, i: number) => {
+            const data: { [key: string]: React.ReactNode } = {
+              key: i,
+            };
+            row.children.forEach(
+              (cell: { children: object[] }, index: number) => {
+                const key = columns[index].dataIndex;
+                data[key] = (
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: renderToHTML({
+                        type: "paragraph",
+                        children: [...cell.children],
+                      }),
+                    }}
+                  ></span>
+                );
+              }
+            );
+            return data;
+          }
+        );
+        //   console.log("🚀 ~ dataSource:", dataSource);
+        const table = (
+          <Table columns={columns} dataSource={dataSource} pagination={false} />
+        );
+        return table;
+      },
+    },
+  };
 
   const spec = data.find(
     (item) => item.params === `${params.category}/${params.spec}`
@@ -60,72 +110,18 @@ function App() {
 
   useEffect(() => {
     if (!spec || !spec.data) return;
-    const tree = parser(spec.data);
+    const tree = parser(spec?.data || "");
     setToc((tree as { tableOfContents: TocElement }).tableOfContents);
-    const options = {
-      table: {
-        disabled: false,
-        childrenFormat: "object",
-
-        customRender: (obj: {
-          headers: { children: object[] }[];
-          rows: { children: object[] }[];
-        }) => {
-          const columns = obj.headers.map((column: { children: object[] }) => {
-            const title = renderToHTML(column.children[0]);
-            return {
-              title: title,
-              key: title.toLocaleLowerCase().replace(/\s/g, "-"),
-              dataIndex: title.toLocaleLowerCase().replace(/\s/g, "-"),
-            };
-          });
-          console.log(columns);
-
-          const dataSource: TableProps<DataType>["columns"] = obj.rows.map(
-            (row: { children: object[] }, i: number) => {
-              const data: { [key: string]: React.ReactNode } = {
-                key: i,
-              };
-
-              row.children.forEach(
-                (cell: { children: object[] }, index: number) => {
-                  const key = columns[index].dataIndex;
-                  data[key] = (
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: renderToHTML({
-                          type: "paragraph",
-                          children: [...cell.children],
-                        }),
-                      }}
-                    ></span>
-                  );
-                }
-              );
-
-              return data;
-            }
-          );
-          console.log(dataSource);
-
-          //   console.log("🚀 ~ dataSource:", dataSource);
-          const table = (
-            <Table
-              columns={columns}
-              dataSource={dataSource}
-              pagination={false}
-            />
-          );
-          const element = renderToString(table);
-          const div = document.createElement("div");
-          div.innerHTML = element;
-          return div.firstChild as HTMLElement;
-        },
-      },
-    };
-    const doc = renderToHTML(tree, options);
-    setNd(doc);
+    return setNd(spec.data);
   }, [spec]);
+
+  // useEffect(() => {
+  //   console.log("Element changed");
+  //   const codes = document.querySelectorAll(".custom-block-code");
+  //   console.log("🚀 ~ codes:", codes);
+  //   // update codes contains with jsx
+
+  // }, [nd]);
 
   useEffect(() => {
     const localStorageTheme = localStorage.getItem("theme");
@@ -134,6 +130,10 @@ function App() {
       document.body.setAttribute("data-theme", localStorageTheme);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(nd);
+  }, [nd]);
 
   return (
     <ConfigProvider
@@ -149,10 +149,12 @@ function App() {
       <div>
         <Navigation data={specsPath} />
         <main>
-          <div
-            id="nd-content"
-            dangerouslySetInnerHTML={{ __html: nd ? nd : "" }}
-          ></div>
+          <div id="nd-content" ref={elementRef}>
+            <Nodown
+              content={nd && nd?.length > 0 ? nd : ""}
+              renderOptions={renderOptions}
+            />
+          </div>
           <TableOfContent toc={toc} />
         </main>
       </div>
