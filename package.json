@@ -14,13 +14,15 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@uiw/react-json-view": "^2.0.0-alpha.18",
     "antd": "^5.15.0",
     "gh-pages": "^6.1.1",
-    "nodown": "^0.2.2",
+    "nodown": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-inspector": "^6.0.2",
     "react-json-view-lite": "^1.2.1",
-    "react-nodown": "^0.1.1",
+    "react-nodown": "^0.1.3",
     "react-router-dom": "^6.21.3",
     "sass": "^1.70.0"
   },

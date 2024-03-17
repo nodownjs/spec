@@ -2,7 +2,7 @@
 
 ## Syntaxe
 
-```
+```syntaxe
 # TEXT {#ID}
 ## TEXT {#ID}
 ### TEXT {#ID}

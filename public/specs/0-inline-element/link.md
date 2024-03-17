@@ -2,7 +2,7 @@
 
 ## Syntaxe
 
-```
+```syntaxe
 [TEXT](LINK;TITLE)
 ```
 

@@ -2,7 +2,7 @@
 
 ## Syntaxe
 
-```
+```syntaxe
 ![ALT_TEXT;WIDTH;HEIGHT;RENDER](IMAGE_URL;TITLE)
 ```
 

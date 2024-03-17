@@ -1,0 +1,32 @@
+#nodown-render .custom-block-code-wrapper {
+  //   width: 100%;
+  //   margin-top: 1em;
+  overflow-x: hidden;
+  border-radius: 0.25em;
+  padding: 1em;
+
+  .custom-block-code {
+    display: flex;
+    width: 100%;
+    transition: transform 0.2s;
+    gap: 1em;
+
+    > div {
+      min-width: 100%;
+      flex: 1;
+      // margin: 0;
+      // padding: 0;
+      //   overflow-y: hidden;
+      * {
+        background-color: transparent !important;
+      }
+    }
+  }
+}
+
+body[data-theme="dark"] #nodown-render .custom-block-code-wrapper {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+body[data-theme="light"] #nodown-render .custom-block-code-wrapper {
+  background-color: rgba(0, 0, 0, 0.05);
+}

@@ -1,15 +1,18 @@
-import { ConfigProvider, Table, TableProps, theme } from "antd";
-import { parser, renderToHTML } from "nodown";
+import { ConfigProvider, theme } from "antd";
+import { parser } from "nodown";
 import { useEffect, useRef, useState } from "react";
+// import { JsonView, allExpanded, darkStyles } from "react-json-view-lite";
+import "react-json-view-lite/dist/index.css";
 import { Nodown } from "react-nodown";
 import { useParams } from "react-router-dom";
 import { DataType, ThemeType, TocElement } from ".";
-import "../node_modules/@ethicdevs/json-tree-view/dist/index.css";
 import "../node_modules/nodown/styles/index.css";
 import "../node_modules/nodown/styles/theme-dark.css";
 import "../node_modules/nodown/styles/theme-light.css";
 import Header from "./components/header/Header";
 import Navigation from "./components/navigation/Navigation";
+import BlockCode from "./components/nodown/BlockCode";
+import Table from "./components/nodown/Table";
 import TableOfContent from "./components/table-of-content/TableOfContent";
 import specsPath from "./specs-path.json";
 
@@ -38,44 +41,18 @@ function App() {
       childrenFormat: "object",
       customRender: (obj: {
         headers: { children: object[] }[];
-        rows: { children: object[] }[];
+        rows: { children: { children: [] }[] }[];
       }) => {
-        const columns = obj.headers.map((column: { children: object[] }) => {
-          const title = renderToHTML(column.children[0]);
-          return {
-            title: title,
-            key: title.toLocaleLowerCase().replace(/\s/g, "-"),
-            dataIndex: title.toLocaleLowerCase().replace(/\s/g, "-"),
-          };
-        });
-        const dataSource: TableProps<DataType>["columns"] = obj.rows.map(
-          (row: { children: object[] }, i: number) => {
-            const data: { [key: string]: React.ReactNode } = {
-              key: i,
-            };
-            row.children.forEach(
-              (cell: { children: object[] }, index: number) => {
-                const key = columns[index].dataIndex;
-                data[key] = (
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: renderToHTML({
-                        type: "paragraph",
-                        children: [...cell.children],
-                      }),
-                    }}
-                  ></span>
-                );
-              }
-            );
-            return data;
-          }
-        );
-        //   console.log("🚀 ~ dataSource:", dataSource);
-        const table = (
-          <Table columns={columns} dataSource={dataSource} pagination={false} />
-        );
-        return table;
+        return <Table obj={obj} />;
+      },
+    },
+    "block-code": {
+      childrenFormat: "object",
+      customRender: (obj: {
+        children: { children: string }[];
+        language: string;
+      }) => {
+        return <BlockCode obj={obj} localTheme={localTheme} />;
       },
     },
   };
@@ -132,7 +109,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(nd);
+    // console.log(nd);
   }, [nd]);
 
   return (
