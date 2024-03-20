@@ -32,7 +32,6 @@ function Navigation({ data }: { data: PathType[] }) {
 
   return (
     <nav id="menu">
-      {" "}
       <div>{menu}</div>
     </nav>
   );
