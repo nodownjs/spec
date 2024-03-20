@@ -3,7 +3,7 @@ import { lightTheme } from "@uiw/react-json-view/light";
 import { nordTheme } from "@uiw/react-json-view/nord";
 import { Segmented } from "antd";
 import { parser, renderToHTML } from "nodown";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Inspector } from "react-inspector";
 
 function BlockCode({
@@ -14,17 +14,16 @@ function BlockCode({
     children: { children: string }[];
     language: string;
   };
-  localTheme: string;
+  localTheme: "dark" | "light";
 }) {
-  const [renderOption, setRenderOption] = useState<"object" | "html">("object");
+  const [renderOption, setRenderOption] = useState<
+    "object" | "html" | "preview"
+  >("preview");
+  const iframeRef = useRef(null);
+  const [reload, setReload] = useState(0);
 
   const code = obj.children.map((child) => child.children).join("\n");
-  if (obj.language.length > 0)
-    return (
-      <pre>
-        <code>{code}</code>
-      </pre>
-    );
+
   const json = parser(code, {
     section: {
       disabled: true,
@@ -51,7 +50,69 @@ function BlockCode({
   const htmlString = renderToHTML(json_);
   const html = document.createElement("div");
   html.innerHTML = htmlString;
+  console.log("🚀 ~ htmlString:", htmlString);
   const htmlElement = html.querySelector("#nodown-render");
+
+  useEffect(() => {
+    const iframe = iframeRef.current as HTMLIFrameElement | null;
+    if (!iframe) return;
+    const doc = iframe.contentDocument;
+    if (!doc) return;
+
+    doc.open();
+    doc.write(htmlString);
+
+    const themeStyle = doc.createElement("link");
+    themeStyle.rel = "stylesheet";
+    themeStyle.type = "text/css";
+    themeStyle.href = `https://unpkg.com/nodown@latest/styles/theme-${localTheme}.css`;
+
+    doc.head.appendChild(themeStyle);
+
+    const basicStyle = doc.createElement("link");
+    basicStyle.rel = "stylesheet";
+    basicStyle.type = "text/css";
+    basicStyle.href = `https://unpkg.com/nodown@latest/styles/index.css`;
+    doc.head.appendChild(basicStyle);
+
+    // add style to style the body
+    doc.body.style.margin = "0";
+    doc.body.style.padding = "0";
+    doc.body.style.backgroundColor =
+      localTheme === "dark" ? "#1b1f25" : "#f2f2f2";
+    doc.body.style.color = localTheme === "dark" ? "#fff" : "#000";
+
+    doc.body.setAttribute("data-theme", localTheme);
+
+    doc.close();
+  }, [htmlString, localTheme, reload]);
+
+  if (obj.language.length > 0) {
+    const regex = /<([^>]+)>|([^<]+)/g;
+
+    const result: Array<{ type: string; content: string }> = [];
+    let match: RegExpExecArray | null;
+
+    while ((match = regex.exec(code)) !== null) {
+      const content = match[1] ? match[1] : match[2];
+      const type = match[1] ? "params" : "text";
+      result.push({ type, content });
+    }
+
+    return (
+      <pre className="syntaxes">
+        <code>
+          {result.map((r, i) => {
+            if (r.type === "params") {
+              return <span key={i}>{r.content}</span>;
+            }
+            return r.content;
+          })}
+        </code>
+      </pre>
+    );
+  }
+
   return (
     <>
       <pre>
@@ -59,10 +120,11 @@ function BlockCode({
       </pre>
       <Segmented
         options={[
-          { label: "Result in object", value: "object" },
-          { label: "Result in HTML", value: "html" },
+          { label: "HTML Preview", value: "preview" },
+          { label: "HTML Code View", value: "html" },
+          { label: "Object View", value: "object" },
         ]}
-        onChange={(value: "object" | "html") => {
+        onChange={(value: "object" | "html" | "preview") => {
           setRenderOption(value);
         }}
       />
@@ -71,11 +133,27 @@ function BlockCode({
           className="custom-block-code"
           style={{
             transform:
-              renderOption === "object"
+              renderOption === "preview"
                 ? "translateX(0)"
-                : "translateX(calc(-100% - 1em))",
+                : renderOption === "html"
+                ? "translateX(calc(-100% - 1em))"
+                : "translateX(calc(-200% - 2em))",
           }}
         >
+          <div className="html-preview">
+            <a className="reload" onClick={() => setReload((r) => r + 1)}>
+              Reload
+            </a>
+            <iframe title="Contenu" ref={iframeRef} />
+          </div>
+          <div className="html-render">
+            <Inspector
+              theme={localTheme === "dark" ? "chromeDark" : "chromeLight"}
+              data={htmlElement}
+              table={false}
+              expandLevel={10}
+            />
+          </div>
           <div className="object-render">
             <JsonView
               value={json}
@@ -86,14 +164,6 @@ function BlockCode({
               collapsed={4}
               highlightUpdates={false}
               displayObjectSize={false}
-            />
-          </div>
-          <div className="html-render">
-            <Inspector
-              theme={localTheme === "dark" ? "chromeDark" : "chromeLight"}
-              data={htmlElement}
-              table={false}
-              expandLevel={10}
             />
           </div>
         </div>
