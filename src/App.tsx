@@ -83,7 +83,7 @@ function App() {
           });
       });
     });
-  }, []);
+  }, [data.length]);
 
   useEffect(() => {
     if (!spec || !spec.data) return;
@@ -112,11 +112,23 @@ function App() {
     // console.log(nd);
   }, [nd]);
 
+  const customDarkTheme = {
+    algorithm: darkAlgorithm,
+    token: {
+      // colorBgBase: "#0f1319",
+      colorBgContainer: "#0f1319",
+      colorBorderSecondary: "#272b30",
+      colorBgElevated: "#25292e",
+    },
+  };
+
+  const customLightTheme = {
+    algorithm: defaultAlgorithm,
+  };
+
   return (
     <ConfigProvider
-      theme={{
-        algorithm: localTheme === "dark" ? darkAlgorithm : defaultAlgorithm,
-      }}
+      theme={localTheme === "dark" ? customDarkTheme : customLightTheme}
     >
       <Header
         theme={localTheme}
