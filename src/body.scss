@@ -10,7 +10,7 @@ body {
     }
     > *,
     > header > div {
-      --width: 1600px;
+      --width: 1800px;
       max-width: var(--width);
       margin: 0 auto;
     }
@@ -34,7 +34,7 @@ main {
   #nd-content {
     padding: 0 48px 0;
     flex: 1;
-    max-width: 850px;
+    max-width: 1000px;
     margin: 48px auto;
   }
 }

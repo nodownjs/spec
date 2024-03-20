@@ -20,18 +20,39 @@
       .ant-menu-item-group-title {
         padding-left: 8px !important;
       }
+      .ant-menu-item-selected {
+        background-color: transparent !important;
+        color: inherit !important;
+      }
       .ant-menu-item {
-        padding-left: 8px !important;
         margin-left: 0 !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+
+        span {
+          height: 100%;
+          width: 100%;
+          display: inline-block;
+          a {
+            padding-left: 8px !important;
+            height: 100%;
+            width: calc(100% - 8px);
+            display: inline-block;
+          }
+        }
       }
     }
   }
 }
-body[data-theme="dark"] .ant-menu-item-selected {
+// body[data-theme="dark"] .ant-menu-item-selected {
+//   color: #fff !important;
+//   background-color: rgba($color: #fff, $alpha: 0.1) !important;
+// }
+body[data-theme="dark"] #menu a.active {
   color: #fff !important;
   background-color: rgba($color: #fff, $alpha: 0.1) !important;
 }
-body[data-theme="light"] .ant-menu-item-selected {
+body[data-theme="light"] #menu a.active {
   color: #000 !important;
   background-color: rgba($color: #000, $alpha: 0.1) !important;
 }
