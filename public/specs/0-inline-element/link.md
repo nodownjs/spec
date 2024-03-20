@@ -1,26 +1,28 @@
 # Link
 
+A link is an inline element used to create hyperlinks within a document. It consists of text that serves as the clickable portion and a URL pointing to the destination. Optionally, you can include a title for additional context, which is displayed when hovering over the link.
+
 ## Syntaxe
 
 ```syntaxe
-[TEXT](LINK;TITLE)
+[<text>](<link>;<title>)
 ```
 
 | Attributes | Value type | Required | Description                         |
 | ---------- | ---------- | -------- | ----------------------------------- |
-| TEXT       | text       | Optional | The text that replace the link      |
-| LINK       | text       | Required | The link                            |
-| TITLE      | text       | Optional | The link title (displayed on hover) |
+| text       | text       | Optional | The text that replace the link      |
+| link       | text       | Required | The link                            |
+| title      | text       | Optional | The link title (displayed on hover) |
 
 ## Exemples
 
-### Basic title
+### Basic link
 
 ```
 [Messaging with privacy !](https://signal.org/)
 ```
 
-### Title with ID
+### Link with ID
 
 ```
 [](https://signal.org/)

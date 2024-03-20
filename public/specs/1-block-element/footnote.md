@@ -1,17 +1,19 @@
 # Footnote
 
+A footnote is an element used to provide additional information or comments about a specific part of a document. It consists of a reference mark, indicated by a caret `^` and an `ID`, and the corresponding footnote text. The syntax for creating a footnote involves placing the reference mark at the desired location in the text, followed by the footnote text at the bottom of the page or document. The reference mark and footnote text are linked by their `IDs`, which must be unique within the document.
+
 ## Syntaxe
 
 ```syntaxe
-[^ID]
+[^<id>]
 
-[^ID]: TEXT
+[^<id>]: <text>
 ```
 
 | Attributes | Value type | Required | Description                |
 | ---------- | ---------- | -------- | -------------------------- |
-| TEXT       | text       | Required | The footnote text text     |
-| ID         | text       | Required | The ID of the footnote ref |
+| id         | text       | Required | The ID of the footnote ref |
+| text       | text       | Required | The footnote text          |
 
 ## Exemples
 
