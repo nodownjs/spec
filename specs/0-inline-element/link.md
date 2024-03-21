@@ -22,8 +22,14 @@ A link is an inline element used to create hyperlinks within a document. It cons
 [Messaging with privacy !](https://signal.org/)
 ```
 
-### Link with ID
+### Without text remplacement
 
 ```
-[](https://signal.org/)
+[](https://github.com/nodownjs/)
+```
+
+### Without the syntaxe, links still works
+
+```
+https://github.com/nodownjs/
 ```

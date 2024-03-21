@@ -48,3 +48,45 @@ An alert is an element used to draw attention to important information within a 
 >! # Be careful
 >! Dont forget to save your work
 ```
+
+### Warning alert only with one type attribute
+
+```
+>! # Be careful
+> Dont forget to save your work
+```
+
+### Warning alert with a emoji
+
+```
+>! # ⚠️ Be careful
+>! Dont forget to save your work
+```
+
+### Info alert
+
+```
+>i # 📝 Note
+>i Everything is going well
+```
+
+### Success alert
+
+```
+>+ # ✅ Success
+>+ Your work has been saved
+```
+
+### Error alert
+
+```
+>- # ❌ Error
+>- An error has occurred
+```
+
+### Question alert
+
+```
+>? # ❓ Question
+>? Do you want to save your work?
+```
