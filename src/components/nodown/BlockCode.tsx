@@ -9,12 +9,14 @@ import { Inspector } from "react-inspector";
 function BlockCode({
   obj,
   localTheme,
+  config,
 }: {
   obj: {
     children: { children: string }[];
     language: string;
   };
   localTheme: "dark" | "light";
+  config: object;
 }) {
   const [renderOption, setRenderOption] = useState<
     "object" | "html" | "preview"
@@ -22,35 +24,18 @@ function BlockCode({
   const iframeRef = useRef(null);
   const [reload, setReload] = useState(0);
 
-  const code = obj.children.map((child) => child.children).join("\n");
+  const code = obj.children
+    .map((child) => child.children)
+    .join("\n")
+    .replace(/\\`\\`\\`/g, "```");
 
-  const json = parser(code, {
-    section: {
-      disabled: true,
-    },
-    horizontalAlignment: {
-      disabled: true,
-    },
-    root: {
-      disabled: true,
-    },
-  });
-  const json_ = parser(code, {
-    section: {
-      disabled: true,
-    },
-    horizontalAlignment: {
-      disabled: true,
-    },
-    root: {
-      disabled: false,
-    },
+  const json: { children?: object[] } = parser(code, {
+    ...config,
   });
 
-  const htmlString = renderToHTML(json_);
+  const htmlString = renderToHTML(json);
   const html = document.createElement("div");
   html.innerHTML = htmlString;
-  console.log("🚀 ~ htmlString:", htmlString);
   const htmlElement = html.querySelector("#nodown-render");
 
   useEffect(() => {
@@ -75,7 +60,14 @@ function BlockCode({
     basicStyle.href = `https://unpkg.com/nodown@latest/styles/index.css`;
     doc.head.appendChild(basicStyle);
 
-    // add style to style the body
+    const customStyle = doc.createElement("style");
+    customStyle.innerHTML = `
+      #nodown-render {
+        font-size: 24px;
+      }
+    `;
+    doc.body.appendChild(customStyle);
+
     doc.body.style.margin = "0";
     doc.body.style.padding = "0";
     doc.body.style.backgroundColor =
@@ -88,7 +80,7 @@ function BlockCode({
   }, [htmlString, localTheme, reload]);
 
   if (obj.language.length > 0) {
-    const regex = /<([^>]+)>|([^<]+)/g;
+    const regex = /<(\w+)>|(.)/gs;
 
     const result: Array<{ type: string; content: string }> = [];
     let match: RegExpExecArray | null;
@@ -96,12 +88,12 @@ function BlockCode({
     while ((match = regex.exec(code)) !== null) {
       const content = match[1] ? match[1] : match[2];
       const type = match[1] ? "params" : "text";
-      result.push({ type, content });
+      result.push({ type, content: content });
     }
 
     return (
-      <pre className="syntaxes">
-        <code>
+      <pre className="nodown-block-code syntaxes">
+        <code className="nodown-code">
           {result.map((r, i) => {
             if (r.type === "params") {
               return <span key={i}>{r.content}</span>;
@@ -115,8 +107,8 @@ function BlockCode({
 
   return (
     <>
-      <pre>
-        <code>{code}</code>
+      <pre className="nodown-block-code">
+        <code className="nodown-code">{code}</code>
       </pre>
       <Segmented
         options={[
@@ -156,7 +148,7 @@ function BlockCode({
           </div>
           <div className="object-render">
             <JsonView
-              value={json}
+              value={json.children}
               style={localTheme === "dark" ? nordTheme : lightTheme}
               enableClipboard={false}
               displayDataTypes={false}

@@ -1,5 +1,6 @@
 // Remove the unused import statement for 'antdTable'
 import {
+  BgColorsOutlined,
   CheckCircleOutlined,
   ExclamationCircleOutlined,
   FontSizeOutlined,
@@ -52,6 +53,16 @@ function Table({
                         {type}
                       </Tag>
                     );
+                  } else if (
+                    type === "hex" ||
+                    type === "rgb" ||
+                    type === "hsl"
+                  ) {
+                    return (
+                      <Tag key={i} icon={<BgColorsOutlined />} color="volcano">
+                        {type}
+                      </Tag>
+                    );
                   } else if (type === "percentage") {
                     return (
                       <Tag
@@ -80,7 +91,7 @@ function Table({
           );
         } else {
           return (
-            <Tag icon={<CheckCircleOutlined />} color="#317572">
+            <Tag icon={<CheckCircleOutlined />} color="cyan">
               Optional
             </Tag>
           );
@@ -111,8 +122,6 @@ function Table({
       return data;
     }
   );
-  console.log("dataSource:");
-  console.log(dataSource);
 
   return (
     <AntdTable columns={columns} dataSource={dataSource} pagination={false} />

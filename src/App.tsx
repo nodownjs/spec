@@ -52,7 +52,8 @@ function App() {
         children: { children: string }[];
         language: string;
       }) => {
-        return <BlockCode obj={obj} localTheme={localTheme} />;
+        const config = getAdaptedConfig(params.spec);
+        return <BlockCode obj={obj} localTheme={localTheme} config={config} />;
       },
     },
   };
@@ -60,6 +61,41 @@ function App() {
   const spec = data.find(
     (item) => item.params === `${params.category}/${params.spec}`
   );
+
+  function getAdaptedConfig(element?: string) {
+    switch (element) {
+      case "div":
+        return {
+          horizontalAlignment: {
+            disabled: false,
+          },
+          section: {
+            disabled: true,
+          },
+        };
+        break;
+      case "footnote":
+        return {
+          horizontalAlignment: {
+            disabled: true,
+          },
+          section: {
+            disabled: false,
+          },
+        };
+        break;
+      default:
+        return {
+          horizontalAlignment: {
+            disabled: true,
+          },
+          section: {
+            disabled: true,
+          },
+        };
+        break;
+    }
+  }
 
   useEffect(() => {
     if (data.length > 0) return;
@@ -109,7 +145,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // console.log(nd);
+    // console.log("nd");
+    // console.log(renderToReact(parser(nd || "")));
   }, [nd]);
 
   const customDarkTheme = {
