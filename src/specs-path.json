@@ -2,16 +2,31 @@
   {
     "folder": "0-inline-element",
     "files": [
+      "code.md",
+      "color.md",
+      "date.md",
+      "emphasis.md",
+      "french-quotation-mark.md",
       "image.md",
-      "link.md"
+      "link.md",
+      "strikethrough.md",
+      "strong.md",
+      "superscript.md",
+      "supscript.md",
+      "underline.md",
+      "unicode.md"
     ]
   },
   {
     "folder": "1-block-element",
     "files": [
       "alert.md",
+      "block-code.md",
+      "div.md",
       "footnote.md",
-      "title.md"
+      "paragraph.md",
+      "title.md",
+      "variable.md"
     ]
   }
 ]
