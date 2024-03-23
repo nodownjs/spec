@@ -1,6 +1,6 @@
 # Date
 
-...
+The date element is used to display a date in a specific format defined by a specific type.
 
 ## Syntaxe
 
@@ -11,7 +11,7 @@
 | Attributs | Value Type                                   | Required | Description                           |
 | --------- | -------------------------------------------- | -------- | ------------------------------------- |
 | type      | text["t", "iso", "i", "us", "u","eu", "e"]   | Required | The type of defined date              |
-| time      | text                                         | Required | The date of the format type defined   |
+| time      | text or number                               | Required | The date of the format type defined   |
 | format    | text["t", "T", "d", "D", "f", "F", "r", "R"] | Required | The format of the display of the date |
 
 ## Exemples

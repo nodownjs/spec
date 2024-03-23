@@ -1,6 +1,6 @@
 # French quotation mark
 
-...
+French quotation mark is used to replace the default quotation mark by the french one.
 
 ## Syntaxe
 

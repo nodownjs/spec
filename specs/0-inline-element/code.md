@@ -1,6 +1,6 @@
 # Code
 
-The `<code>` element is used to define a fragment of computer code. The content inside is displayed in the browser's default monospaced font.
+The code element is used to define a fragment of computer code. The content inside is displayed in the browser's default monospaced font.
 
 ## Syntaxe
 
