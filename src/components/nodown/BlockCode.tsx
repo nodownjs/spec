@@ -68,7 +68,6 @@ function BlockCode({
     `;
     doc.body.appendChild(customStyle);
 
-    doc.body.style.margin = "0";
     doc.body.style.padding = "0";
     doc.body.style.backgroundColor =
       localTheme === "dark" ? "#1b1f25" : "#f2f2f2";
