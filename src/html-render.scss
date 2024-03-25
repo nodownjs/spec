@@ -4,6 +4,7 @@
   overflow-x: hidden;
   border-radius: 0.25em;
   padding: 1em;
+  max-height: 600px;
 
   .custom-block-code {
     display: flex;
@@ -22,6 +23,10 @@
       }
     }
   }
+}
+
+#nodown-render .nodown-block-code code.nodown-code {
+  font-size: 1.2em;
 }
 
 body[data-theme="dark"] #nodown-render .custom-block-code-wrapper {
@@ -52,14 +57,14 @@ body[data-theme="light"] #nodown-render .custom-block-code-wrapper {
     border: none;
 
     body {
-      background-color: "trasparent";
+      background-color: "transparent";
     }
   }
 }
 
 #nodown-render .syntaxes {
-  code {
-    font-size: 1em;
+  code.nodown-code {
+    // font-size: 1.5em;
   }
   span {
     font-size: 1em;

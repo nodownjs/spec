@@ -64,6 +64,16 @@ function App() {
 
   function getAdaptedConfig(element?: string) {
     switch (element) {
+      case "quick-start":
+        return {
+          horizontalAlignment: {
+            disabled: false,
+          },
+          section: {
+            disabled: false,
+          },
+        };
+        break;
       case "div":
         return {
           horizontalAlignment: {

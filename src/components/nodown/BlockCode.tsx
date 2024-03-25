@@ -63,7 +63,7 @@ function BlockCode({
     const customStyle = doc.createElement("style");
     customStyle.innerHTML = `
       #nodown-render {
-        font-size: 24px;
+        font-size: 19px;
       }
     `;
     doc.body.appendChild(customStyle);
