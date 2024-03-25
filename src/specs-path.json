@@ -1,6 +1,13 @@
 [
   {
-    "folder": "0-inline-element",
+    "folder": "1-getting-started",
+    "files": [
+      "introduction.md",
+      "quick-start.md"
+    ]
+  },
+  {
+    "folder": "2-inline-element",
     "files": [
       "code.md",
       "color.md",
@@ -11,14 +18,14 @@
       "link.md",
       "strikethrough.md",
       "strong.md",
+      "subscript.md",
       "superscript.md",
-      "supscript.md",
       "underline.md",
       "unicode.md"
     ]
   },
   {
-    "folder": "1-block-element",
+    "folder": "3-block-element",
     "files": [
       "alert.md",
       "block-code.md",
