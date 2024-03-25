@@ -45,7 +45,7 @@ function BlockCode({
     if (!doc) return;
 
     doc.open();
-    doc.write(htmlString);
+    doc.write("<!DOCTYPE html>" + htmlString);
 
     const themeStyle = doc.createElement("link");
     themeStyle.rel = "stylesheet";
