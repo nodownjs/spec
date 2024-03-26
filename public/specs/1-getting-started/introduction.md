@@ -4,7 +4,7 @@ The purpose of this documentation is to define the various elements that can be 
 
 ## Introduction
 
-Nodown is a lightweight markup language that shares a strong similarity with Markdown. Developed in JavaScript, it was born of the desire to enrich Markdown by integrating additional functionalities, while overcoming certain limitations inherent in standard Markdown.
+Nodown is a lightweight markup language[^lml] that shares a strong similarity with Markdown. Developed in JavaScript, it was born of the desire to enrich Markdown by integrating additional functionalities, while overcoming certain limitations inherent in standard Markdown.
 
 ## Motivations
 
@@ -22,3 +22,12 @@ The main objectives are as follows:
 ## Vision
 
 Nodown's vision for the future is to offer a complete solution that is easy to use, modern and continually improved. We are committed to listening to the community and providing tools tailored to users' needs.
+
+##
+
+>i # Note
+>i This documentation is written in Nodown with some custom elements permitted by the API
+
+## Footnotes
+
+[^lml]: Lightweight Markup Language is a term used to describe a markup language that is easy to read and write. Markdown is a good example of a lightweight markup language.
