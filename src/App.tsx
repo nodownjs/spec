@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 // import { JsonView, allExpanded, darkStyles } from "react-json-view-lite";
 import "react-json-view-lite/dist/index.css";
 import { Nodown } from "react-nodown";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DataType, ThemeType, TocElement } from ".";
 import "../node_modules/nodown/styles/index.css";
 import "../node_modules/nodown/styles/theme-dark.css";
@@ -34,6 +34,7 @@ function App() {
   const params = useParams();
   const { darkAlgorithm, defaultAlgorithm } = theme;
   const elementRef = useRef(null);
+  const navigate = useNavigate();
 
   const renderOptions = {
     table: {
@@ -58,9 +59,14 @@ function App() {
     },
   };
 
+  if (!params.category || !params.spec) {
+    navigate("/getting-started/introduction");
+  }
+
   const spec = data.find(
     (item) => item.params === `${params.category}/${params.spec}`
   );
+  console.log("🚀 ~ spec:", spec);
 
   function getAdaptedConfig(element?: string) {
     switch (element) {
