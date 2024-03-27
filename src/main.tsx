@@ -25,7 +25,7 @@ const routes = [
 ];
 
 const router = createBrowserRouter(routes, {
-  basename: "/specs",
+  basename: "/spec",
 });
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

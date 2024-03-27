@@ -115,8 +115,8 @@ function Header({
       <header id="header">
         <div>
           <div id="title">
-            <img src="/specs/images/logo.svg" />
-            <span>Nodown syntaxes</span>
+            <img src="/spec/images/logo.svg" />
+            <span>Nodown specification</span>
           </div>
           <div id="right">
             <nav>

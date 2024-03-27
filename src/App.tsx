@@ -14,7 +14,7 @@ import Navigation from "./components/navigation/Navigation";
 import BlockCode from "./components/nodown/BlockCode";
 import Table from "./components/nodown/Table";
 import TableOfContent from "./components/table-of-content/TableOfContent";
-import specsPath from "./specs-path.json";
+import specPath from "./spec-path.json";
 
 export function FormatLabel(text: string, only?: boolean): string {
   if (only)
@@ -117,14 +117,14 @@ function App() {
     if (data.length > 0) return;
     // console.log("fetching");
     const tempData: DataType[] = [];
-    specsPath.forEach((folder) => {
+    specPath.forEach((folder) => {
       folder.files.forEach((file) => {
         const id = `${folder.folder}/${file}`;
         const params = `${FormatLabel(folder.folder, true)}/${FormatLabel(
           file,
           true
         )}`;
-        const path = `/specs/specs/${id}`;
+        const path = `/spec/docs/${id}`;
         fetch(path)
           .then((response) => response.text())
           .then((data) => {
@@ -189,7 +189,7 @@ function App() {
         data={data}
       />
       <div>
-        <Navigation data={specsPath} />
+        <Navigation data={specPath} />
         <main>
           <div id="nd-content" ref={elementRef}>
             <Nodown

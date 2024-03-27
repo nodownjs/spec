@@ -1,0 +1,39 @@
+[
+  {
+    "folder": "1-getting-started",
+    "files": [
+      "introduction.md",
+      "quick-start.md"
+    ]
+  },
+  {
+    "folder": "2-inline-element",
+    "files": [
+      "code.md",
+      "color.md",
+      "date.md",
+      "emphasis.md",
+      "french-quotation-mark.md",
+      "image.md",
+      "link.md",
+      "strikethrough.md",
+      "strong.md",
+      "subscript.md",
+      "superscript.md",
+      "underline.md",
+      "unicode.md"
+    ]
+  },
+  {
+    "folder": "3-block-element",
+    "files": [
+      "alert.md",
+      "block-code.md",
+      "div.md",
+      "footnote.md",
+      "paragraph.md",
+      "title.md",
+      "variable.md"
+    ]
+  }
+]
