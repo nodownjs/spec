@@ -13,7 +13,7 @@ Here a few examples of inline elements:
 **This is a strong text**
 *This is an emphasis text*
 `This is a code text`
-[This is a link](https://nodownjs.github.io/specs/)
+[This is a link](https://nodownjs.github.io/spec/)
 ```
 
 Inline elements can be combined:
