@@ -66,7 +66,6 @@ function App() {
   const spec = data.find(
     (item) => item.params === `${params.category}/${params.spec}`
   );
-  console.log("🚀 ~ spec:", spec);
 
   function getAdaptedConfig(element?: string) {
     switch (element) {
@@ -115,7 +114,6 @@ function App() {
 
   useEffect(() => {
     if (data.length > 0) return;
-    // console.log("fetching");
     const tempData: DataType[] = [];
     specPath.forEach((folder) => {
       folder.files.forEach((file) => {
@@ -144,14 +142,6 @@ function App() {
     return setNd(spec.data);
   }, [spec]);
 
-  // useEffect(() => {
-  //   console.log("Element changed");
-  //   const codes = document.querySelectorAll(".custom-block-code");
-  //   console.log("🚀 ~ codes:", codes);
-  //   // update codes contains with jsx
-
-  // }, [nd]);
-
   useEffect(() => {
     const localStorageTheme = localStorage.getItem("theme");
     if (localStorageTheme) {
@@ -159,11 +149,6 @@ function App() {
       document.body.setAttribute("data-theme", localStorageTheme);
     }
   }, []);
-
-  useEffect(() => {
-    // console.log("nd");
-    // console.log(renderToReact(parser(nd || "")));
-  }, [nd]);
 
   const customDarkTheme = {
     algorithm: darkAlgorithm,
