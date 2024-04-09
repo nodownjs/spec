@@ -99,6 +99,19 @@ function App() {
           },
         };
         break;
+      case "french-quotation-mark":
+        return {
+          horizontalAlignment: {
+            disabled: true,
+          },
+          section: {
+            disabled: true,
+          },
+          "french-quotation-mark": {
+            disabled: false,
+          },
+        };
+        break;
       default:
         return {
           horizontalAlignment: {
