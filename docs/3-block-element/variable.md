@@ -24,3 +24,11 @@ Actual version: <version>
 
 <version>: 0.1.0
 ```
+
+### Variable in code
+
+```
+Actual version: <`<version>`>
+
+<version>: 0.1.0
+```
